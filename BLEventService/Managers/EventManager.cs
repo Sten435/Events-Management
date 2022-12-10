@@ -9,7 +9,18 @@ namespace BLEventService.Managers
 {
 	public class EventManager
 	{
+
+		
 		public Dictionary<string, Event> _events = new();
+
+		public EventManager()
+		{
+			_events.Add("a", new Event("a", "location a", 5, DateTime.Parse("24/10/2022")));
+			_events.Add("b", new Event("b", "location b", 5, DateTime.Parse("25/10/2022")));
+			_events.Add("c", new Event("c", "location c", 5, DateTime.Parse("22/10/2022")));
+			_events.Add("d", new Event("d", "location d", 5, DateTime.Parse("20/10/2022")));
+		}
+
 		public IReadOnlyList<Event> GetAll()
 		{
 			return _events.Values.ToList().AsReadOnly();
@@ -39,9 +50,9 @@ namespace BLEventService.Managers
 		public Event GetByName(string name)
 		{
 			if (string.IsNullOrWhiteSpace(name))
-				throw new EventException("EventManager - GetByName");
-			if (_events.ContainsKey(name))
-				throw new EventException("EventManager - GetByName");
+				throw new EventException("EventManager - GetByName - name is empty");
+			if (!_events.ContainsKey(name))
+				throw new EventException("EventManager - GetByName - name does not exist");
 			return _events[name];
 		}
 
@@ -86,6 +97,16 @@ namespace BLEventService.Managers
 				throw new EventException("VisitorManager - UpdateVisitor");
 			//TODO: Wat met Visitors
 			_events[_event.Name] = _event;
+		}
+
+		public bool ExistEvent(Event ev)
+		{
+			return ExistEvent(ev.Name);
+		}
+
+		public bool ExistEvent(string name)
+		{
+			return _events.ContainsKey(name);
 		}
 	}
 }

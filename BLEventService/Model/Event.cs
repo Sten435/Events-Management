@@ -13,8 +13,9 @@ namespace BLEventService.Model
         public int MaxVisitors { get; private set; }
         public DateTime Date { get; set; }
         private Dictionary<int, Visitor> _visitors = new Dictionary<int, Visitor>();
+		public IReadOnlyList<Visitor> Visitors => _visitors.Values.ToList();
 
-        public Event(string name, string location, int maxVisitors, DateTime date)
+		public Event(string name, string location, int maxVisitors, DateTime date)
         {
             SetName(name);
             SetLocation(location);

@@ -9,6 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<VisitorManager>();
+builder.Services.AddSingleton<EventManager>();
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 
